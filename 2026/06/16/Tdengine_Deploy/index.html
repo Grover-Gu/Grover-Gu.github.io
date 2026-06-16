@@ -84,7 +84,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://grover-gu.github.io/2026/06/10/docker服务配置代理/"/>
+    <link rel="canonical" href="https://grover-gu.github.io/2026/06/16/tdengine_deploy/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -93,14 +93,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker配置代理">
-<meta property="og:url" content="https://grover-gu.github.io/2026/06/10/Docker%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="Tdengine 时序库部署">
+<meta property="og:url" content="https://grover-gu.github.io/2026/06/16/Tdengine_Deploy/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://grover-gu.github.io/images/redefine-og.webp">
-<meta property="article:published_time" content="2026-06-10T07:58:10.005Z">
-<meta property="article:modified_time" content="2026-06-16T08:02:39.313Z">
+<meta property="article:published_time" content="2026-06-16T07:26:54.669Z">
+<meta property="article:modified_time" content="2026-06-16T08:02:05.183Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -116,7 +116,7 @@
     
     <title>
         
-            Docker配置代理 | 亦丶晨&#39;s Blog
+            Tdengine 时序库部署 | 亦丶晨&#39;s Blog
         
     </title>
 
@@ -404,7 +404,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Docker配置代理</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Tdengine 时序库部署</h1>
 			</div>
 			
 		</div>
@@ -425,15 +425,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2026-06-10 15:58:10</span>
-        <span class="mobile">2026-06-10 15:58:10</span>
+        <span class="desktop">2026-06-16 15:26:54</span>
+        <span class="mobile">2026-06-16 15:26:54</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-06-16 16:02:39</span>
-            <span class="mobile">2026-06-16 16:02:39</span>
+            <span class="desktop">2026-06-16 16:02:05</span>
+            <span class="mobile">2026-06-16 16:02:05</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -447,7 +447,7 @@
                     
                         
                         <li>
-                            <a href="/categories/Docker/">Docker</a>&nbsp;
+                            <a href="/categories/%E6%97%B6%E5%BA%8F%E5%BA%93/">时序库</a>&nbsp;
                         </li>
                     
                     
@@ -457,7 +457,7 @@
                             <li>></li>
                         
                         <li>
-                            <a href="/categories/Docker/Proxy/">Proxy</a>&nbsp;
+                            <a href="/categories/%E6%97%B6%E5%BA%8F%E5%BA%93/TDengine/">TDengine</a>&nbsp;
                         </li>
                     
                     
@@ -497,55 +497,157 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<ol>
-<li><h4 id="查看Docker服务是否配置代理"><a href="#查看Docker服务是否配置代理" class="headerlink" title="查看Docker服务是否配置代理"></a>查看Docker服务是否配置代理</h4><p>执行：</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl show --property=Environment docker</span><br></pre></td></tr></table></figure></div>
-
-<p>如果看到：</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment=</span><br></pre></td></tr></table></figure></div>
-
-<p>说明Docker没配置代理</p>
+			<ul>
+<li><p><strong>启动以及运行TDengine</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">docker拉取最新的TDengine容器镜像：</span></span><br><span class="line">docker pull tdengine/tdengine:latest</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">指定容器镜像版本</span></span><br><span class="line">docker pull tdengine/tdengine:3.0.1.4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">运行TDengine</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">TDengine 3.0 服务端仅使用 6030 TCP 端口。6041 为 taosAdapter 所使用提供 REST 服务端口。6043-6049 为 taosAdapter 提供第三方应用接入所使用端口，可根据需要选择是否打开。</span></span><br><span class="line">docker run -d -p 6030 -p 6041:6041 -p 6043-6049:6043-6049 -p 6043-6049:6043-6049/udp tdengine/tdengine</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">持久化数据启动</span></span><br><span class="line">docker run -d </span><br><span class="line">           -v ~/data/taos/dnode/data:/var/lib/taos \  </span><br><span class="line">           -v ~/data/taos/dnode/log:/var/log/taos \  </span><br><span class="line">           -p 6030:6030 -p 6041:6041 -p 6043-6049:6043-6049 -p 6043-6049:6043-6049/udp tdengine/tdengine</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入容器执行bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">docker  <span class="built_in">exec</span> -it &lt;container name&gt; bash</span></span><br><span class="line">docker exec -it tdengine bash</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">体验写入速度</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入容器后执行taosBenchmark</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">taosBenchmark</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">运行TDengine CLI</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入容器后执行taosBenchmark</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">taos</span></span><br></pre></td></tr></table></figure></div>
 </li>
-<li><h4 id="Docker配置代理"><a href="#Docker配置代理" class="headerlink" title="Docker配置代理"></a>Docker配置代理</h4><ol>
-<li><h5 id="创建配置目录"><a href="#创建配置目录" class="headerlink" title="创建配置目录"></a>创建配置目录</h5><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/systemd/system/docker.service.d</span><br></pre></td></tr></table></figure></div>
+<li><p><strong>Docker Compose部署集群</strong></p>
+<ul>
+<li>创建项目路径</li>
+</ul>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">新建文件夹</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">mkdir</span> -p &lt;项目路径&gt;</span></span><br><span class="line">mkdir -p /home/tdengine;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入新建的文件夹路径</span></span><br><span class="line">cd /home/tdengine;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">新建etc文件加</span></span><br><span class="line">mkdir etc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建tdengine配置文件taos.cfg</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">集群内每个tdengine文件夹都需要配置</span></span><br><span class="line">cd /home/tdengine;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建集群子集文件夹</span></span><br><span class="line">mkdir tdengine1 tdengine2 tdengine3;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建配置文件taos.cfg</span></span><br><span class="line">cd tdengine1;</span><br><span class="line">vim taos.cfg;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">创建docker-compose.yml</span></span><br><span class="line">cd /home/tdengine;</span><br><span class="line">vim docker-compose.yml</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">拉取镜像</span></span><br><span class="line">docker pull tdengine/tdengine:latest</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">启动集群</span></span><br><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>taos.cfg</li>
+</ul>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#taos.cfg文件内容</span><br><span class="line">#taosd启动时主动连接第一个endpoint，默认值为localhost:6030</span><br><span class="line">firstEp      tdengine1:6030</span><br><span class="line">#taosd启动时如果first连接不上，尝试连接seconde，默认为空</span><br><span class="line">secondEp     tdengine1:6030</span><br><span class="line">#数据节点的fqdn，缺省为操作系统配置的第一个hostname。可配置为IP</span><br><span class="line">fqdn         tdengine1</span><br><span class="line">#taosd启动后，对外的服务端口</span><br><span class="line">serverPort   6030</span><br><span class="line">#日志文件目录，默认为 /var/log/taos</span><br><span class="line">#logDir      /var/log/taos</span><br><span class="line">#数据文件目录，默认为 /var/lib/taos</span><br><span class="line">#dataDir     /var/lib/taos</span><br><span class="line">#是否启动负载均衡 0否 1是；默认值是1</span><br><span class="line">#balance     1</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>docker-compose.yml</li>
+</ul>
+<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="attr">tdengine1:</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">tdengine/tdengine:latest</span></span><br><span class="line">        <span class="attr">hostname:</span> <span class="string">tdengine1</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">tdengine1</span></span><br><span class="line">        <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">6020</span><span class="string">:6020</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">6030</span><span class="number">-6042</span><span class="string">:6030-6042/tcp</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">6030</span><span class="number">-6042</span><span class="string">:6030-6042/udp</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine1/data:/var/lib/taos</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine1/log:/var/log/taos</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine1:/etc/taos</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">tdengine2:</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">tdengine/tdengine:latest</span></span><br><span class="line">        <span class="attr">hostname:</span> <span class="string">tdengine2</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">tdengine2</span></span><br><span class="line">        <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">7020</span><span class="string">:7020</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">7030</span><span class="number">-7042</span><span class="string">:7030-7042/tcp</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">7030</span><span class="number">-7042</span><span class="string">:7030-7042/udp</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine2/data:/var/lib/taos</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine2/log:/var/log/taos</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine2:/etc/taos</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">tdengine3:</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">tdengine/tdengine:latest</span></span><br><span class="line">        <span class="attr">hostname:</span> <span class="string">tdengine3</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">tdengine3</span></span><br><span class="line">        <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">8020</span><span class="string">:8020</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">8030</span><span class="number">-8042</span><span class="string">:8030-8042/tcp</span></span><br><span class="line">            <span class="bullet">-</span> <span class="number">8030</span><span class="number">-8042</span><span class="string">:8030-8042/udp</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine3/data:/var/lib/taos</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine3/log:/var/log/taos</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/tdengine3:/etc/taos</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><p>产生问题</p>
+<p>使用docker compose down后需要清空tdengine文件夹下的data文件夹，否则tdengine服务会一直在restarting</p>
 </li>
-<li><h5 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h5><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/systemd/system/docker.service.d/http-proxy.conf</span><br></pre></td></tr></table></figure></div>
-
-<p>内容：</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://127.0.0.1:7890&quot;</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://127.0.0.1:7890&quot;</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure></div>
-
-<p>如果是走SOCKSS5：</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;ALL_PROXY=socks5://127.0.0.1:7891&quot;</span><br></pre></td></tr></table></figure></div>
+</ul>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/tdengine;</span><br><span class="line">rm -rf /tdengine1/data</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><h5 id="重新加载"><a href="#重新加载" class="headerlink" title="重新加载"></a>重新加载</h5><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure></div>
-
-<p>查看是否生效：</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl show --property=Environment docker</span><br></pre></td></tr></table></figure></div>
-
-<p>应该看到：</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment=HTTP_PROXY=socks5://127.0.0.1:7891 HTTPS_PROXY=socks5://127.0.0.1:7891 NO_PROXY=localhost,127.0.0.1</span><br></pre></td></tr></table></figure></div></li>
-</ol>
+<li><p><strong>TDengine文件目录结构</strong></p>
 </li>
-</ol>
-
+</ul>
+<table>
+<thead>
+<tr>
+<th>目录文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;usr&#x2F;local&#x2F;taos&#x2F;bin</td>
+<td>TDengine 可执行文件目录。其中的执行文件都会软链接到&#x2F;usr&#x2F;bin 目录下。</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;local&#x2F;taos&#x2F;driver</td>
+<td>TDengine 动态链接库目录。会软链接到&#x2F;usr&#x2F;lib 目录下。</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;local&#x2F;taos&#x2F;examples</td>
+<td>TDengine 各种语言应用示例目录。</td>
+</tr>
+<tr>
+<td>&#x2F;usr&#x2F;local&#x2F;taos&#x2F;include</td>
+<td>TDengine 对外提供的 C 语言接口的头文件。</td>
+</tr>
+<tr>
+<td>&#x2F;etc&#x2F;taos&#x2F;taos.cfg</td>
+<td>TDengine 默认[配置文件]</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;lib&#x2F;taos</td>
+<td>TDengine 默认数据文件目录。可通过[配置文件]修改位置。</td>
+</tr>
+<tr>
+<td>&#x2F;var&#x2F;log&#x2F;taos</td>
+<td>TDengine 默认日志文件目录。可通过[配置文件]修改位置。</td>
+</tr>
+</tbody></table>
+<h6 id="可执行文件"><a href="#可执行文件" class="headerlink" title="可执行文件"></a>可执行文件</h6><p>TDengine 的所有可执行文件默认存放在 <strong>&#x2F;usr&#x2F;local&#x2F;taos&#x2F;bin</strong> 目录下。其中包括：</p>
+<ul>
+<li><p>taosd：TDengine 服务端可执行文件</p>
+</li>
+<li><p>taos：TDengine Shell 可执行文件</p>
+</li>
+<li><p>taosdump：数据导入导出工具</p>
+</li>
+<li><p>taosBenchmark：TDengine 测试工具</p>
+</li>
+<li><p>remove.shrmtaos：卸载 TDengine 的脚本，请谨慎执行，链接到&#x2F;usr&#x2F;bin 目录下的rmtaos命令。会删除 TDengine 的安装目录&#x2F;usr&#x2F;local&#x2F;taos，但会保留&#x2F;etc&#x2F;taos、&#x2F;var&#x2F;lib&#x2F;taos、&#x2F;var&#x2F;log&#x2F;taos</p>
+</li>
+<li><p>taosadapter: 提供 RESTful 服务和接受其他多种软件写入请求的服务端可执行文件</p>
+</li>
+<li><p>TDinsight.sh：用于下载 TDinsight 并安装的脚本</p>
+</li>
+<li><p>set_core.sh：用于方便调试设置系统生成 core dump 文件的脚本</p>
+</li>
+<li><p>taosd-dump-cfg.gdb：用于方便调试 taosd 的 gdb 执行脚本。</p>
+</li>
+</ul>
+<h6 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h6><ul>
+<li>采集量（Metric）</li>
+</ul>
+<p>对于设备、传感器等需要收集的数据，且数据会随着时间变化而变化。比如温度计的温度等。</p>
+<ul>
+<li>标签（Tag&#x2F;Lable）</li>
+</ul>
+<p>标签是指对于采集对象（设备、传感器等）的一些静态属性数据，比如设备型号、颜色等，可容许用户修改，且数据不会随着时间变化而变化。</p>
+<ul>
+<li>数据采集点（Data Collection Point）</li>
+</ul>
+<p>一个数据采集点可以采集一个或多个采集量，但这些采集量都是同一时刻采集的，具有相同的时间戳。</p>
+<p>通俗理解，具有多个相同设备的情况下，一个设备就是一个数据采集点。</p>
+<ul>
+<li>表（Table）</li>
+</ul>
+<p>TDengine采用策略是一个数据采集点一张表。</p>
+<p>优点：</p>
+<ul>
+<li><p>每个数据采集点的数据来源唯一，只会存在一个写入者，写入速度加快</p>
+</li>
+<li><p>对于单个数据采集点而言，产生数据都是按照时间排序的，以追加方式写入进一步提高写入速度。</p>
+</li>
+<li><p>一个数据采集点的数据是以块为单位连续存储的。如果读取一个时间段的数据，它能大幅减少随机读取操作，成数量级的提升读取和查询速度。</p>
+</li>
+<li><p>一个数据块内部，采用列式存储，对于不同数据类型，采用不同压缩算法，而且由于一个数据采集点的采集量的变化是缓慢的，压缩率更高。</p>
+</li>
+<li><p>超级表（STable）</p>
+</li>
+</ul>
+<p>代表一个具体的数据采集点，超级表用来代表一组相同的数据采集点集合。</p>
+<p>例如：有一千万个电表，每个电表都对应一张子表，而超级表就是这些子表的集合。这时如果有一个水表，那就需要新建一张超级表。</p>
+<ul>
+<li>子表（SubTable）</li>
+</ul>
+<p>通过超级表创建的表。</p>
+<ul>
+<li>库（Database）</li>
+</ul>
+<p>一个库里，可以有一到多个超级表，但一个超级表只属于一个库。一个超级表所拥有的子表全部存在一个库里。</p>
+<ul>
+<li>FQDN &amp; EndPoint</li>
+</ul>
+<p>FQDN（Fully Qualified Domain Name，完全限定域名）是 Internet 上特定计算机或主机的完整域名。FQDN 由两部分组成:主机名和域名。例如，假设邮件服务器的 FQDN 可能是 mail.tdengine.com。主机名是 mail，主机位于域名 tdengine.com 中。DNS（Domain Name System），负责将 FQDN 翻译成 IP，是互联网应用的寻址方式。对于没有 DNS 的系统，可以通过配置 hosts 文件来解决。</p>
+<p>TDengine 集群的每个节点是由 Endpoint 来唯一标识的，Endpoint 是由 FQDN 外加 Port 组成，比如 h1.tdengine.com:6030。这样当 IP 发生变化的时候，我们依然可以使用 FQDN 来动态找到节点，不需要更改集群的任何配置。而且采用 FQDN，便于内网和外网对同一个集群的统一访问。</p>
+<h6 id=""><a href="#" class="headerlink" title=""></a></h6>
 		</div>
 
 		
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> Docker配置代理</li>
+        <li><strong>Title:</strong> Tdengine 时序库部署</li>
         <li><strong>Author:</strong> 亦丶晨</li>
         <li><strong>Created at
-                :</strong> 2026-06-10 15:58:10</li>
+                :</strong> 2026-06-16 15:26:54</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2026-06-16 16:02:39
+                    :</strong> 2026-06-16 16:02:05
             </li>
         
         <li>
-            <strong>Link:</strong> https://github.com/Grover-Gu/2026/06/10/Docker服务配置代理/
+            <strong>Link:</strong> https://github.com/Grover-Gu/2026/06/16/Tdengine_Deploy/
         </li>
         <li>
             <strong>
@@ -579,12 +681,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2026/06/16/Git_Command/">
+				<a class="prev" rel="prev" href="/2026/06/16/Git_SSH/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">Git Command</span>
+						<span class="post-nav-title-item truncate max-w-48">Git SSH公钥的使用</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>
@@ -592,9 +694,9 @@
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2026/06/10/Linux_Deployment_Of_Clash/">
+				<a class="next" rel="next" href="/2026/06/16/Docker_Image_Acceleration/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">linux系统部署clash</span>
+						<span class="post-nav-title-item truncate max-w-48">Docker 镜像加速</span>
 						<span class="post-nav-item">Next posts</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -677,7 +779,7 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">On this page</div>
-		<div class="page-title">Docker配置代理</div>
+		<div class="page-title">Tdengine 时序库部署</div>
 		
 
 	</div>
